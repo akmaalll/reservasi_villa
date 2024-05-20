@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Data Villa</h4>
-                            <a href="/create/transaksi">
+                            <a href="{{ route('create.villa') }}">
                                 <button class="btn btn-primary mb-3">Tambah Villa</button>
                             </a>
                             <div class="table-responsive">
@@ -27,25 +27,41 @@
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Nama</th>
-                                            <th scope="col">Fasilitas</th>
-                                            <th scope="col">Gambar</th>
+                                            <th scope="col">Deskripsi</th>
                                             <th scope="col">Harga</th>
+                                            <th scope="col">Gambar</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>user</td>
-                                            <td>makassar</td>
-                                            <td>png</td>
-                                            <td>0987654321</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($data as $v)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $v->nama }}</td>
+                                                <td>{{ $v->deskripsi }}</td>
+                                                <td>{{ $v->harga }}</td>
+                                                <td>
+                                                    <img src="{{ asset('images/villa/' . $v->gambar) }}" width="100"
+                                                        alt="">
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <a href="{{ route('edit.villa', $v->id) }}" class="btn btn-warning"
+                                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                                class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ route('destroy.villa', $v->id) }}" method="POST"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger">
+                                                                <i class="fa fa-close color-danger"></i>
+                                                            </button>
+                                                        </form>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

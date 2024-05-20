@@ -9,12 +9,12 @@
             </li>
             <li class="nav-label">Apps</li>
             <li>
-                <a href="/tamu" aria-expanded="false">
+                <a href="{{ route('index.pelanggan') }}" aria-expanded="false">
                     <i class="icon-envelope menu-icon"></i> <span class="nav-text">Tamu</span>
                 </a>
             </li>
             <li>
-                <a href="/customer" aria-expanded="false">
+                <a href="{{ route('index.villa') }}" aria-expanded="false">
                     <i class="icon-badge menu-icon"></i><span class="nav-text">Villa</span>
                 </a>
             </li>
@@ -23,8 +23,8 @@
                     <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Transaksi</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="/create/transaksi">Pemesanan</a></li>
-                    <li><a href="/transaksi">Laporan Pemesanan</a></li>
+                    <li><a href="/adminn/pemesanan">Pemesanan</a></li>
+                    <li><a href="/adminn/pembayaran">Laporan Pemesanan</a></li>
                 </ul>
             </li>
         </ul>

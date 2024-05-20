@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Data Tamu</h4>
-                            <a href="/create/transaksi">
+                            <a href="{{ route('create.pelanggan') }}">
                                 <button class="btn btn-primary mb-3">Tambah Tamu</button>
                             </a>
                             <div class="table-responsive">
@@ -36,20 +36,33 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>user</td>
-                                            <td>123</td>
-                                            <td>1010101010</td>
-                                            <td>admin</td>
-                                            <td>makassar</td>
-                                            <td>0987654321</td>
-                                            <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a><a
-                                                        href="#" data-toggle="tooltip" data-placement="top"
-                                                        title="Close"><i class="fa fa-close color-danger"></i></a></span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($data as $v)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $v->username }}</td>
+                                                <td>{{ $v->password }}</td>
+                                                <td>{{ $v->ktp }}</td>
+                                                <td>{{ $v->nama }}</td>
+                                                <td>{{ $v->alamat }}</td>
+                                                <td>{{ $v->no_hp }}</td>
+                                                <td>
+                                                    <span>
+                                                        <a href="{{ route('edit.pelanggan', $v->id) }}"
+                                                            class="btn btn-warning" data-toggle="tooltip"
+                                                            data-placement="top" title="Edit"><i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <form action="{{ route('destroy.pelanggan', $v->id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger">
+                                                                <i class="fa fa-close color-danger"></i>
+                                                            </button>
+                                                        </form>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

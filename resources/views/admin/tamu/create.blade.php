@@ -19,13 +19,14 @@
                             <h4 class="card-title">Tambah Data Tamu</h4>
 
                             <div class="form-validation">
-                                <form class="form-valide" action="#" method="post">
+                                <form class="form-valide" action="{{ route('store.pelanggan') }}" method="post">
+                                    @csrf
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="val-username">No KTP<span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="val-username" name="val-username"
+                                            <input type="text" class="form-control" id="val-username" name="ktp"
                                                 placeholder="Masukkan No KTP..">
                                         </div>
                                     </div>
@@ -34,7 +35,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="val-username" name="val-username"
+                                            <input type="text" class="form-control" id="val-username" name="nama"
                                                 placeholder="Masukkan Nama..">
                                         </div>
                                     </div>
@@ -43,7 +44,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="val-username" name="val-username"
+                                            <input type="text" class="form-control" id="val-username" name="alamat"
                                                 placeholder="Masukkan Alamat..">
                                         </div>
                                     </div>
@@ -52,7 +53,7 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="val-username" name="val-username"
+                                            <input type="text" class="form-control" id="val-username" name="no_hp"
                                                 placeholder="Masukkan No Hp..">
                                         </div>
                                     </div>
@@ -73,16 +74,16 @@
         </div>
 
         <!--**********************************
-                                                                                    Content body end
-                                                                                ***********************************-->
+                                                                                            Content body end
+                                                                                        ***********************************-->
 
 
         <!--**********************************
-                                                                                    Footer start
-                                                                                ***********************************-->
+                                                                                            Footer start
+                                                                                        ***********************************-->
         <!--**********************************
-                                                                                    Footer end
-                                                                                    ***********************************-->
+                                                                                            Footer end
+                                                                                            ***********************************-->
         {{-- <div class="footer">
                 <div class="copyright">
                     <p>Copyright &copy; Designed & Developed by <a
