@@ -3,7 +3,7 @@
         <ul class="metismenu" id="menu">
             <li class="nav-label">Dashboard</li>
             <li>
-                <a href="/dashboard" aria-expanded="false">
+                <a href="{{ route('dashboard') }}" aria-expanded="false">
                     <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                 </a>
             </li>
@@ -23,8 +23,8 @@
                     <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Transaksi</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="/adminn/pemesanan">Pemesanan</a></li>
-                    <li><a href="/adminn/pembayaran">Laporan Pemesanan</a></li>
+                    <li><a href="{{ route('create.reservasi') }}">Pemesanan</a></li>
+                    <li><a href="{{ route('index.reservasi') }}">Laporan Pemesanan</a></li>
                 </ul>
             </li>
         </ul>

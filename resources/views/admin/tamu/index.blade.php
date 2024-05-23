@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Data Tamu</h4>
-                            <a href="{{ route('create.pelanggan') }}">
+                            <a href="/adminn/tamu/create">
                                 <button class="btn btn-primary mb-3">Tambah Tamu</button>
                             </a>
                             <div class="table-responsive">

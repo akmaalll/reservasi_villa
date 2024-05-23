@@ -28,7 +28,12 @@
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>
-                                <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button class="dropdown-item text-danger text-small" type="submit"><i
+                                                class="icon-key"></i>Logout</button>
+                                    </form>
                                 </li>
                             </ul>
                         </div>

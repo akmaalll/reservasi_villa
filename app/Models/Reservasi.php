@@ -14,6 +14,7 @@ class Reservasi extends Model
         'check_in',
         'check_out',
         'total_harga',
+        'metode_pembayaran',
         'payment_status',
     ];
 

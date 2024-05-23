@@ -51,12 +51,13 @@ class ReservasiController extends Controller
         $totalPrice = $villa->harga * $days;
 
         $reservasi = Reservasi::create([
-            'pelanggan_id' => $request->input('pelanggan_id'),
-            'villa_id' => $request->input('villa_id'),
-            'check_in' => $request->input('check_in'),
-            'check_out' => $request->input('check_out'),
+            'pelanggan_id' => $request->pelanggan_id,
+            'villa_id' => $request->villa_id,
+            'check_in' => $request->check_in,
+            'check_out' => $request->check_out,
             'total_harga' => $totalPrice,
-            'payment_status' => $request->input('payment_status'),
+            'metode_pembayaran' => $request->payment_status,
+            'payment_status' => 'belum_bayar',
         ]);
 
         // dd($reservasi);
@@ -64,28 +65,18 @@ class ReservasiController extends Controller
         return redirect()->route('index.reservasi');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function updatePaymentStatus(Request $request, $id)
     {
-        //
-    }
+        $reservasi = Reservasi::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        if ($request->has('payment_status')) {
+            $reservasi->payment_status = $request->input('payment_status');
+            $reservasi->save();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+            return redirect()->back()->with('success', 'Status pembayaran berhasil diperbarui.');
+        }
+
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui status pembayaran.');
     }
 
     /**

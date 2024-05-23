@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('ktp');
             $table->string('alamat');
             $table->string('no_hp');
-            $table->string('username');
-            $table->string('password');
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

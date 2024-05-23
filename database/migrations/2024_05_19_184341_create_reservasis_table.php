@@ -18,7 +18,8 @@ return new class extends Migration
             $table->dateTime('check_in');
             $table->dateTime('check_out');
             $table->decimal('total_harga', 10, 2);
-            $table->boolean('payment_status')->default(false);
+            $table->enum('metode_pembayaran', ['transfer', 'tunai']);
+            $table->enum('payment_status', ['sudah_bayar', 'belum_bayar'])->default('belum_bayar');
             $table->timestamps();
 
             $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('cascade');

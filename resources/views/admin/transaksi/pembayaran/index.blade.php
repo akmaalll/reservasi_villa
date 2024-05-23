@@ -46,16 +46,69 @@
                                                 </td>
                                                 <td>{{ $v->total_harga }}</td>
                                                 <td>
-                                                    <button class="btn mb-1 btn-rounded btn-danger">{{ $v->payment_status }}
-                                                    </button>
+                                                    @if ($v->payment_status == 'sudah_bayar')
+                                                        <button class="btn mb-1 btn-rounded btn-success">Sudah
+                                                            Bayar</button>
+                                                    @else
+                                                        <button class="btn mb-1 btn-rounded btn-danger">Belum Bayar</button>
+                                                    @endif
                                                 </td>
-                                                <td><span><a href="#" data-toggle="tooltip" data-placement="top"
-                                                            title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i>
-                                                        </a><a href="#" data-toggle="tooltip" data-placement="top"
-                                                            title="Close"><i
-                                                                class="fa fa-close color-danger"></i></a></span>
+                                                <td>
+                                                    <span>
+                                                        <a href="#" data-toggle="modal"
+                                                            data-target="#paymentStatusModal{{ $v->id }}"
+                                                            data-toggle="tooltip" data-placement="top" title="Edit">
+                                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                                        </a>
+                                                        <a href="#" data-toggle="tooltip" data-placement="top"
+                                                            title="Close">
+                                                            <i class="fa fa-close color-danger"></i>
+                                                        </a>
+                                                    </span>
                                                 </td>
                                             </tr>
+
+                                            <div class="modal fade" id="paymentStatusModal{{ $v->id }}"
+                                                tabindex="-1" role="dialog" aria-labelledby="paymentStatusModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="paymentStatusModalLabel">Ubah Status
+                                                                Pembayaran</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form
+                                                            action="{{ route('reservasi.update.status', $v->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="payment_status">Status Pembayaran</label>
+                                                                    <select class="form-control" id="payment_status"
+                                                                        name="payment_status">
+                                                                        <option value="sudah_bayar"
+                                                                            {{ $v->payment_status == 'sudah_bayar' ? 'selected' : '' }}>
+                                                                            Sudah Bayar</option>
+                                                                        <option value="belum_bayar"
+                                                                            {{ $v->payment_status == 'belum_bayar' ? 'selected' : '' }}>
+                                                                            Belum Bayar</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Tutup</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
