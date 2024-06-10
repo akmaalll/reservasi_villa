@@ -57,17 +57,21 @@
                                                     <span>
                                                         <a href="#" data-toggle="modal"
                                                             data-target="#paymentStatusModal{{ $v->id }}"
-                                                            data-toggle="tooltip" data-placement="top" title="Edit">
-                                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                                            class="btn btn-warning" data-toggle="tooltip"
+                                                            data-placement="top" title="Edit"><i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a href="#" data-toggle="tooltip" data-placement="top"
-                                                            title="Close">
-                                                            <i class="fa fa-close color-danger"></i>
-                                                        </a>
+                                                        <form action="{{ route('destroy.reservasi', $v->id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger">
+                                                                <i class="fa fa-close color-danger"></i>
+                                                            </button>
+                                                        </form>
                                                     </span>
                                                 </td>
                                             </tr>
-
+                                            {{-- modal --}}
                                             <div class="modal fade" id="paymentStatusModal{{ $v->id }}"
                                                 tabindex="-1" role="dialog" aria-labelledby="paymentStatusModalLabel"
                                                 aria-hidden="true">
@@ -81,8 +85,7 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form
-                                                            action="{{ route('reservasi.update.status', $v->id) }}"
+                                                        <form action="{{ route('reservasi.update.status', $v->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             <div class="modal-body">

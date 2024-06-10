@@ -56,6 +56,14 @@ Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\admin', 'midd
     });
 });
 
+Route::get('/', 'App\Http\Controllers\user\UserController@index')->name('user');
+Route::get('/villa', 'App\Http\Controllers\user\UserController@villa')->name('villa');
+Route::get('/villa/detail/{id}', 'App\Http\Controllers\user\UserController@detail')->name('detail');
+
 Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\user', 'middleware' => 'auth:pelanggan'], function () {
-    Route::get('/', 'UserController@index')->name('user');
+    Route::get('/reservasi', 'ReservasiController@index')->name('user.reservasi');
+    Route::get('/reservasi/villa', 'ReservasiController@villa')->name('user.villa');
+    Route::get('/reservasi/villa/detail/{id}', 'ReservasiController@detail')->name('user.detail');
+    Route::get('/reservasi/profil', 'ReservasiController@profil')->name('user.profil');
+    Route::post('/reservasi/store', 'ReservasiController@store')->name('user.store');
 });

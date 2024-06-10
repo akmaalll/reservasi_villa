@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Villa;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,15 +13,23 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        $villa = Villa::all();
+        return view('user.index', compact('villa'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function villa()
     {
-        //
+        $villa = Villa::all();
+        return view('user.villa', compact('villa'));
+    }
+
+    public function detail($id)
+    {
+        $villa = Villa::findOrFail($id);
+        return view('user.detail', compact('villa'));
     }
 
     /**

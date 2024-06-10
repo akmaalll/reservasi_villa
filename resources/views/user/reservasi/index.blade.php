@@ -28,6 +28,20 @@ TemplateMo 591 villa agency
 https://templatemo.com/tm-591-villa-agency
 
 -->
+
+    {{-- modal --}}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('appearance/modal/fonts/icomoon/style.css') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('appearance/modal/css/bootstrap.min.css') }}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{{ asset('appearance/modal/css/style.css') }}">
 </head>
 
 <body>
@@ -79,10 +93,16 @@ https://templatemo.com/tm-591-villa-agency
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li><a href="{{ route('user') }}" class="active">Home</a></li>
-                            <li><a href="{{ route('villa') }}">Villa</a></li>
+                            <li><a href="{{ route('user.reservasi') }}" class="active">Home</a></li>
+                            <li><a href="{{ route('user.villa') }}">Villa</a></li>
+                            <li><a href="{{ route('user.profil') }}">Profile</a></li>
                             <li>
-                                <a href="{{ route('login') }}"><i class="fa fa-calendar"></i> Schedule a visit</a>
+                                <button type="button" class="btn btn-secondary mb-5" data-toggle="modal"
+                                    data-target="#exampleModalCenter">
+                                    <i class="fa fa-calendar"></i>
+                                    Schedule a visit
+                                </button>
+                                {{-- <a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a> --}}
                             </li>
                         </ul>
                         <a class='menu-trigger'>
@@ -95,6 +115,72 @@ https://templatemo.com/tm-591-villa-agency
         </div>
     </header>
     <!-- ***** Header Area End ***** -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content rounded-0">
+                <div class="modal-body py-0">
+                    <div class="d-flex main-content">
+                        <div class="bg-image promo-img mr-3"
+                            style="background-image: url('appearance/modal/images/img_1.jpg');">
+                        </div>
+                        <div class="content-text p-4">
+                            <h3>Reservation form</h3>
+
+                            <form action="{{ route('user.store') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="pelanggan_id"
+                                    value="{{ Auth::guard('pelanggan')->user()->id }}">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="mm">Check In</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="date" class="form-control" id="" name="check_in"
+                                            placeholder="Masukkan Tanggal Masuk..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="mm">Check Out</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="date" class="form-control" id="" name="check_out"
+                                            placeholder="Masukkan Tanggal Keluar..">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fname">Villa</label>
+                                    <select class="form-control" name="villa_id" id="val-skill">
+                                        <option value="">=== Pilih Villa ===</option>
+                                        @foreach ($villa as $v)
+                                            <option value="{{ $v->id }}">{{ $v->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="name">Metode Pembayaran</label>
+                                    <select class="form-control" name="payment_status" id="val-skill">
+                                        <option>-- Pilih Metode Pembayaran --</option>
+                                        <option value="tunai">Tunai</option>
+                                        <option value="transfer">Transfer</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Pesan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
 
     <div class="main-banner">
         <div class="owl-carousel owl-banner">
@@ -282,6 +368,12 @@ https://templatemo.com/tm-591-villa-agency
     <script src="{{ asset('appearance/assets/js/owl-carousel.js') }}"></script>
     <script src="{{ asset('appearance/assets/js/counter.js') }}"></script>
     <script src="{{ asset('appearance/assets/js/custom.js') }}"></script>
+
+    {{-- modal --}}
+    <script src="{{ asset('appearance/modal/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('appearance/modal/js/popper.min.js') }}"></script>
+    <script src="{{ asset('appearance/modal/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('appearance/modal/js/main.js') }}"></script>
 
 </body>
 

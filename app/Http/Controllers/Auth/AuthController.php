@@ -49,7 +49,7 @@ class AuthController extends Controller
             // dd(Auth::guard('web')->attempt($credentials));
             $request->session()->regenerate();
 
-            return redirect()->intended(route('user'));
+            return redirect()->intended(route('user.reservasi'));
         }
 
         return back()->withErrors([
@@ -62,6 +62,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect(route('login'));
+        return redirect(route('user'));
     }
 }

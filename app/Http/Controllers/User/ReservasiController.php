@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pelanggan;
 use App\Models\Reservasi;
 use App\Models\Villa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservasiController extends Controller
 {
@@ -15,19 +15,33 @@ class ReservasiController extends Controller
      */
     public function index()
     {
-        $data = Reservasi::with('villa', 'pelanggan')->get();
-        $no = 1;
-        return view('admin.transaksi.pembayaran.index', compact('data', 'no'));
+        $villa = Villa::all();
+        return view('user.reservasi.index', compact('villa'));
+    }
+
+    public function villa()
+    {
+        $villa = Villa::all();
+        return view('user.reservasi.villa', compact('villa'));
+    }
+
+    public function detail($id)
+    {
+        $villa = Villa::findOrFail($id);
+        return view('user.reservasi.detail', compact('villa'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function profil()
     {
-        $tamu = Pelanggan::all();
-        $villa = Villa::all();
-        return view('admin.transaksi.pemesanan.index', compact('tamu', 'villa'));
+        // Ambil ID pelanggan yang sedang login
+        $pelangganId = Auth::guard('pelanggan')->user()->id;
+
+        // Query untuk mengambil data reservasi berdasarkan ID pelanggan
+        $reservasi = Reservasi::where('pelanggan_id', $pelangganId)->get();
+        return view('user.reservasi.profile', compact('reservasi'));
     }
 
     /**
@@ -43,7 +57,6 @@ class ReservasiController extends Controller
         if ($checkOut->lessThanOrEqualTo($checkIn)) {
             return back()->withErrors(['check_out' => 'Check-out date must be after check-in date']);
         }
-
         // menghitung hari dri check in ke check out
         $days = $checkOut->diffInDays($checkIn);
 
@@ -59,24 +72,33 @@ class ReservasiController extends Controller
             'metode_pembayaran' => $request->payment_status,
             'payment_status' => 'belum_bayar',
         ]);
-
         // dd($reservasi);
 
-        return redirect()->route('index.reservasi');
+        return redirect()->route('user.profil');
     }
 
-    public function updatePaymentStatus(Request $request, $id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $reservasi = Reservasi::findOrFail($id);
+        //
+    }
 
-        if ($request->has('payment_status')) {
-            $reservasi->payment_status = $request->input('payment_status');
-            $reservasi->save();
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
 
-            return redirect()->back()->with('success', 'Status pembayaran berhasil diperbarui.');
-        }
-
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui status pembayaran.');
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
     }
 
     /**
@@ -84,8 +106,6 @@ class ReservasiController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Reservasi::findOrFail($id);
-        $data->delete();
-        return redirect()->route('index.reservasi');
+        //
     }
 }
