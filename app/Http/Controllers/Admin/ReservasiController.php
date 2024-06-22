@@ -13,11 +13,26 @@ class ReservasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = Reservasi::with('villa', 'pelanggan')->get();
         $no = 1;
-        return view('admin.transaksi.pembayaran.index', compact('data', 'no'));
+
+        $query = Reservasi::with('villa', 'pelanggan');
+
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+            $query->whereBetween('check_in', [$startDate, $endDate])
+                ->orWhereBetween('check_out', [$startDate, $endDate])
+                ->orWhere(function ($q) use ($startDate, $endDate) {
+                    $q->where('check_in', '<=', $startDate)
+                        ->where('check_out', '>=', $endDate);
+                });
+        }
+
+        $filteredData = $query->get();
+        return view('admin.transaksi.pembayaran.index', compact('data', 'no', 'filteredData'));
     }
 
     /**
